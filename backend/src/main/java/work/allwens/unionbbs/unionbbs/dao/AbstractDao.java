@@ -14,7 +14,7 @@ public class AbstractDao<T> extends JdbcDaoSupport {
     private JdbcTemplate jdbcTemplate;
     private String table;
     private Class<T> entityClass;
-    private RowMapper<T> rowMapper;
+    protected RowMapper<T> rowMapper;
 
     @SuppressWarnings("unchecked")
     public AbstractDao() {
