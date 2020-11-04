@@ -1,5 +1,8 @@
 package work.allwens.unionbbs.unionbbs.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 public class User {
     private long uid;
     private String uname;
@@ -8,9 +11,6 @@ public class User {
     private String uavatar;
     private int upermission;
     private String usign;
-
-    public User() {
-    }
 
     public long getUid() {
         return uid;
@@ -36,6 +36,7 @@ public class User {
         this.uaccount = uaccount;
     }
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     public String getUpassword() {
         return upassword;
     }
