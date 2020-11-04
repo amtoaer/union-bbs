@@ -10,9 +10,9 @@ CREATE TABLE users(
     uname VARCHAR(20) NOT NULL,
     uaccount VARCHAR(20) NOT NULL,
     upassword VARCHAR(20) NOT NULL,
-    uavatar VARCHAR(150) NOT NULL,
-    usign VARCHAR(100),
-    upermission INT NOT NULL,
+    uavatar VARCHAR(150) DEFAULT "https://gravatar.loli.net/avatar/d41d8cd98f00b204e9800998ecf8427e?s=40&d=mp" NOT NULL,
+    usign VARCHAR(100) DEFAULT "" NOT NULL,
+    upermission INT DEFAULT 2 NOT NULL,
     PRIMARY KEY (id)
 )CHARSET=UTF8;
 
