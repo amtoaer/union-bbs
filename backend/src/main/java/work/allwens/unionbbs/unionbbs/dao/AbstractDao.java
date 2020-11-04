@@ -27,7 +27,7 @@ public class AbstractDao<T> extends JdbcDaoSupport {
     }
 
     public T getById(long id) {
-        return getJdbcTemplate().queryForObject(String.format("SELECT * FROM %s WHERE ID = ?", table), this.rowMapper,
+        return getJdbcTemplate().queryForObject(String.format("SELECT * FROM %s WHERE id = ?", table), this.rowMapper,
                 id);
     }
 

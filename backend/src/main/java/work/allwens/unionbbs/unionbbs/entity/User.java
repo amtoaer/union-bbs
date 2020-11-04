@@ -6,15 +6,10 @@ public class User {
     private String uaccount;
     private String upassword;
     private String uavatar;
+    private int upermission;
     private String usign;
 
-    public User(long uid, String uname, String uaccount, String upassword, String uavatar, String usign) {
-        this.uid = uid;
-        this.uname = uname;
-        this.uaccount = uaccount;
-        this.upassword = upassword;
-        this.uavatar = uavatar;
-        this.usign = usign;
+    public User() {
     }
 
     public long getUid() {
@@ -57,6 +52,14 @@ public class User {
         this.uavatar = uavatar;
     }
 
+    public int getUpermission() {
+        return upermission;
+    }
+
+    public void setUpermission(int upermission) {
+        this.upermission = upermission;
+    }
+
     public String getUsign() {
         return usign;
     }
@@ -64,4 +67,5 @@ public class User {
     public void setUsign(String usign) {
         this.usign = usign;
     }
+
 }
