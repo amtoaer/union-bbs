@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### For Test ###
+src/main/resources/static/
