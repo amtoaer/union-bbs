@@ -6,7 +6,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.sql.Statement;
 import work.allwens.unionbbs.unionbbs.entity.User;
 
 @Component
@@ -17,7 +17,7 @@ public class UserDao extends AbstractDao<User> {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         getJdbcTemplate().update(connection -> {
             PreparedStatement ps = connection
-                    .prepareStatement("INSERT INTO users (uname,uaccount,upassword) VALUES (?,?,?)");
+                    .prepareStatement("INSERT INTO users (uname,uaccount,upassword) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, uname);
             ps.setString(2, uaccount);
             ps.setString(3, upassword);
