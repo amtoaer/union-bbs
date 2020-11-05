@@ -1,5 +1,7 @@
 package work.allwens.unionbbs.unionbbs.controller.rest;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import work.allwens.unionbbs.unionbbs.dao.*;
 import work.allwens.unionbbs.unionbbs.entity.*;
 import work.allwens.unionbbs.unionbbs.request.Login;
 import work.allwens.unionbbs.unionbbs.request.Register;
+import work.allwens.unionbbs.unionbbs.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api")
@@ -24,13 +27,23 @@ public class Info {
         return userDao.getById(id);
     }
 
-    @PostMapping("/users/login")
-    public User userLogin(@RequestBody Login body) {
-        return userDao.login(body.getAccount(), body.getPassword());
+    @PostMapping("/login")
+    public Map<String, Object> userLogin(@RequestBody Login body) {
+        try {
+            User item = userDao.login(body.getAccount(), body.getPassword());
+            return Map.of("user", item, "token", JwtUtil.sign(item.getId(), item.getUpassword()));
+        } catch (Exception e) {
+            return Map.of("error", "SIGN_FAILED", "message", e.getMessage());
+        }
     }
 
-    @PostMapping("/usr/register")
-    public User userRegister(@RequestBody Register body) {
-        return userDao.register(body.getName(), body.getAccount(), body.getPassword());
+    @PostMapping("/register")
+    public Map<String, Object> userRegister(@RequestBody Register body) {
+        try {
+            User item = userDao.register(body.getName(), body.getAccount(), body.getPassword());
+            return Map.of("user", item, "token", JwtUtil.sign(item.getId(), item.getUpassword()));
+        } catch (Exception e) {
+            return Map.of("error", "REGISTER_FAILED", "message", e.getMessage());
+        }
     }
 }
