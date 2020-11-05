@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class User {
-    private long uid;
+    private long id;
     private String uname;
     private String uaccount;
     private String upassword;
@@ -12,12 +12,12 @@ public class User {
     private int upermission;
     private String usign;
 
-    public long getUid() {
-        return uid;
+    public long getId() {
+        return id;
     }
 
-    public void setUid(long uid) {
-        this.uid = uid;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUname() {
