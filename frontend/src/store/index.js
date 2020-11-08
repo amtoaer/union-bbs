@@ -6,11 +6,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: {
+      id: 0,
+      uname: "未登录",
+      uaccount: "未登录",
+      uavatar:
+        "https://gravatar.loli.net/avatar/d41d8cd98f00b204e9800998ecf8427e?s=40&d=mp",
+      upermission: 2,
+      usign: "",
+    },
+    title: "",
+    isLogin: false,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setTitle(state, title) {
+      state.title = title;
     },
   },
   actions: {
