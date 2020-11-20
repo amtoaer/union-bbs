@@ -70,12 +70,14 @@ export default {
         .then((token) => {
           // 把token保存到localStorage
           localStorage.setItem("token", token);
+          // 设置登陆状态为true
+          this.$store.commit("setLoginStatus", true);
           // 跳转到主页
           this.$router.push({ path: "/" });
         });
     },
   },
-  mounted: function() {
+  created: function() {
     this.$store.commit("setTitle", "注册");
   },
 };
