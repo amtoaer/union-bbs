@@ -26,7 +26,8 @@ public class LoginFilter extends FilterRegistrationBean<Filter> {
     @PostConstruct
     public void init() {
         setFilter(new ApiFilter());
-        setUrlPatterns(List.of("/api/users/*"));
+        // 需要登录才能访问：users下的所有功能，新帖子和新评论内容
+        setUrlPatterns(List.of("/api/users/*", "/posts/new", "/comments/new"));
     }
 
     class ApiFilter implements Filter {
@@ -42,6 +43,9 @@ public class LoginFilter extends FilterRegistrationBean<Filter> {
                 var tmp = userDao.getById(id);
                 // 通过验证则继续处理
                 if (JwtUtil.verify(token, id, tmp.getUpassword())) {
+                    // 将请求发起人绑定到请求
+                    request.setAttribute("author", tmp);
+                    // 继续处理
                     chain.doFilter(request, response);
                 } else {
                     HttpServletResponse resp = (HttpServletResponse) response;
