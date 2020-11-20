@@ -46,8 +46,17 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item v-for="n in 5" :key="n" @click="() => {}">
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
+          <v-list-item @click="logOut()">
+            <v-list-item-title>注销</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            @click="
+              $router.push({
+                path: '/profile',
+              })
+            "
+          >
+            <v-list-item-title>查看个人信息</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -74,6 +83,7 @@ export default {
   },
   data: () => ({
     drawer: null,
+    // 显示在抽屉内的内容
     items: [
       {
         icon: "mdi-account-box",
@@ -89,5 +99,72 @@ export default {
       },
     ],
   }),
+  watch: {
+    // 监听登录变化，如果登录则将抽屉内内容替换
+    isLogin: function(val) {
+      if (val) {
+        this.items = [
+          {
+            icon: "mdi-account-box",
+            text: "登录成功",
+            color: "pink lighten-1",
+            path: "/login",
+          },
+          {
+            icon: "mdi-account-plus",
+            text: "测试",
+            color: "pink lighten-1",
+            path: "/register",
+          },
+        ];
+      } else {
+        this.items = [
+          {
+            icon: "mdi-account-box",
+            text: "登录",
+            color: "pink lighten-1",
+            path: "/login",
+          },
+          {
+            icon: "mdi-account-plus",
+            text: "注册",
+            color: "pink lighten-1",
+            path: "/register",
+          },
+        ];
+      }
+    },
+  },
+  created: function() {
+    // 已登录
+    if (localStorage.getItem("token")) {
+      // 将登录状态设置为true
+      this.$store.commit("setLoginStatus", true);
+      // 请求当前用户信息
+      this.axios
+        .request({
+          url: "/api/users/myInfo",
+          method: "GET",
+        })
+        .then((resp) => {
+          this.$store.commit("setUser", resp.data);
+        });
+      // 未登录则跳转到login页面
+    } else {
+      this.$router.push({ path: "/login" });
+    }
+  },
+  methods: {
+    logOut() {
+      // 移除token
+      localStorage.removeItem("token");
+      // 设置登录状态为false
+      this.$store.commit("setLoginStatus", false);
+      // 跳转到登录界面
+      this.$router.push({
+        path: "/login",
+      });
+    },
+  },
 };
 </script>
