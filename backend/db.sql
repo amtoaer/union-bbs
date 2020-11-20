@@ -54,5 +54,5 @@ INSERT INTO comments
 VALUES (2, 1, 1, '你咋回事啊', '2020-11-12');
 INSERT INTO comments
 VALUES (3, 1, 2, '这是第二篇帖子的内容', '2020-11-19');
-INSERT INTO comment
+INSERT INTO comments
 VALUES (4, 1, 2, '这是第二篇帖子的评论', '2020-11-20');
