@@ -16,3 +16,7 @@ spring:
 
 server:
   port: 9876
+
+springdoc:
+  swagger-ui:
+    path: /api/docs.html
