@@ -25,6 +25,9 @@ export default new Vuex.Store({
     setTitle(state, title) {
       state.title = title;
     },
+    setLoginStatus(state, isLogin) {
+      state.isLogin = isLogin;
+    },
   },
   actions: {
     async login({ commit }, user) {
