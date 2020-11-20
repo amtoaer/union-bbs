@@ -5,8 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import java.util.Date;
 
 public class JwtUtil {
-    // token过期时间为3天
-    private static final long expireTime = 60 * 60 * 24 * 3 * 1000;
 
     public static boolean verify(String token, long id, String secret) {
         try {
@@ -29,9 +27,8 @@ public class JwtUtil {
 
     public static String sign(long id, String secret) {
         try {
-            Date date = new Date(System.currentTimeMillis() + expireTime);
             var algo = Algorithm.HMAC256(secret);
-            return JWT.create().withClaim("id", id).withExpiresAt(date).sign(algo);
+            return JWT.create().withClaim("id", id).sign(algo);
         } catch (Exception e) {
             return null;
         }
