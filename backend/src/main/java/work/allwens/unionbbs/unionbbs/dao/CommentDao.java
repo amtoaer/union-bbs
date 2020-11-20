@@ -5,6 +5,11 @@ import work.allwens.unionbbs.unionbbs.entity.Comment;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+@Component
+@Transactional
 public class CommentDao extends AbstractDao<Comment> {
 
     public List<Comment> getByPage(long pid, int index) {
