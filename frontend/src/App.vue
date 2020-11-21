@@ -13,7 +13,7 @@
             @click="$router.push({ path: item.path })"
           >
             <v-list-item-icon>
-              <v-icon v-text="item.icon" :color="item.color"></v-icon>
+              <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -49,15 +49,6 @@
           <v-list-item @click="logOut()">
             <v-list-item-title>注销</v-list-item-title>
           </v-list-item>
-          <v-list-item
-            @click="
-              $router.push({
-                path: '/profile',
-              })
-            "
-          >
-            <v-list-item-title>查看个人信息</v-list-item-title>
-          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -88,13 +79,11 @@ export default {
       {
         icon: "mdi-account-box",
         text: "登录",
-        color: "pink lighten-1",
         path: "/login",
       },
       {
         icon: "mdi-account-plus",
         text: "注册",
-        color: "pink lighten-1",
         path: "/register",
       },
     ],
@@ -105,16 +94,14 @@ export default {
       if (val) {
         this.items = [
           {
-            icon: "mdi-account-box",
-            text: "登录成功",
-            color: "pink lighten-1",
-            path: "/login",
+            icon: "mdi-home-circle",
+            text: "主页",
+            path: "/",
           },
           {
-            icon: "mdi-account-plus",
-            text: "测试",
-            color: "pink lighten-1",
-            path: "/register",
+            icon: "mdi-post",
+            text: "新帖",
+            path: "/new",
           },
         ];
       } else {
@@ -122,13 +109,11 @@ export default {
           {
             icon: "mdi-account-box",
             text: "登录",
-            color: "pink lighten-1",
             path: "/login",
           },
           {
             icon: "mdi-account-plus",
             text: "注册",
-            color: "pink lighten-1",
             path: "/register",
           },
         ];
@@ -160,6 +145,8 @@ export default {
       localStorage.removeItem("token");
       // 设置登录状态为false
       this.$store.commit("setLoginStatus", false);
+      // 将用户设置为默认
+      this.$store.commit("setDefaultUser");
       // 跳转到登录界面
       this.$router.push({
         path: "/login",
