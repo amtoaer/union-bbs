@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Comments from "../views/Comments.vue";
+import Post from "../views/Post.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,16 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
+  },
+  {
+    path: "/post/:pid",
+    name: "Comments",
+    component: Comments,
+  },
+  {
+    path: "/new",
+    name: "Post",
+    component: Post,
   },
 ];
 
