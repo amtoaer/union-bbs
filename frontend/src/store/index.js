@@ -12,8 +12,6 @@ export default new Vuex.Store({
       uaccount: "未登录",
       uavatar:
         "https://gravatar.loli.net/avatar/d41d8cd98f00b204e9800998ecf8427e?s=40&d=mp",
-      upermission: 2,
-      usign: "",
     },
     title: "",
     isLogin: false,
@@ -35,8 +33,6 @@ export default new Vuex.Store({
         uaccount: "未登录",
         uavatar:
           "https://gravatar.loli.net/avatar/d41d8cd98f00b204e9800998ecf8427e?s=40&d=mp",
-        upermission: 2,
-        usign: "",
       };
     },
   },
