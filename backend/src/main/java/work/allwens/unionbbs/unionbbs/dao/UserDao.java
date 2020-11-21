@@ -16,8 +16,8 @@ public class UserDao extends AbstractDao<User> {
     public User register(String uname, String uaccount, String upassword) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         getJdbcTemplate().update(connection -> {
-            PreparedStatement ps = connection
-                    .prepareStatement("INSERT INTO users (uname,uaccount,upassword) VALUES (?,?,?)",Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO users (uname,uaccount,upassword) VALUES (?,?,?);", Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, uname);
             ps.setString(2, uaccount);
             ps.setString(3, upassword);
@@ -29,5 +29,10 @@ public class UserDao extends AbstractDao<User> {
     public User login(String uaccount, String upassword) {
         return getJdbcTemplate().queryForObject("SELECT * FROM users WHERE uaccount = ? AND upassword = ?",
                 new Object[] { uaccount, upassword }, this.rowMapper);
+    }
+
+    public void update(String uname, String uaccount, String upassword, String uavatar, long id) {
+        getJdbcTemplate().update("UPDATE users SET uname=?,uaccount=?,upassword=?,uavatar=? WHERE id=?;", uname,
+                uaccount, upassword, uavatar, id);
     }
 }
