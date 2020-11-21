@@ -5,6 +5,7 @@ import java.util.List;
 import work.allwens.unionbbs.unionbbs.entity.Post;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -33,8 +34,8 @@ public class PostDao extends AbstractDao<Post> {
 	public void newPost(long uid, String title, String content) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(connection -> {
-			PreparedStatement ps = connection
-					.prepareStatement("INSERT INTO posts(uid,ptitle,pdate,pcomment) VALUES(?,?,?,?);");
+			PreparedStatement ps = connection.prepareStatement(
+					"INSERT INTO posts(uid,ptitle,pdate,pcomment) VALUES(?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 			ps.setLong(1, uid);
 			ps.setString(2, title);
 			ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
