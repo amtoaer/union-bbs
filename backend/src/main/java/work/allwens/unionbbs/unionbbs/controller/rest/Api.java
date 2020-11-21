@@ -22,7 +22,7 @@ import work.allwens.unionbbs.unionbbs.security.JwtUtil;
 
 @RestController
 @RequestMapping("/api")
-public class Info {
+public class Api {
     @Autowired
     UserDao userDao;
 
@@ -140,5 +140,11 @@ public class Info {
     public void newComment(@RequestBody work.allwens.unionbbs.unionbbs.request.Comment body, HttpServletRequest req) {
         User author = (User) req.getAttribute("author");
         commentDao.newComment(author.getId(), body.getPid(), body.getContent(), true);
+    }
+
+    @PostMapping("/users/update")
+    public void updateUserInfo(@RequestBody work.allwens.unionbbs.unionbbs.request.User body, HttpServletRequest req) {
+        User author = (User) req.getAttribute("author");
+        userDao.update(body.getUname(), body.getUaccount(), body.getUpassword(), body.getUavatar(), author.getId());
     }
 }
