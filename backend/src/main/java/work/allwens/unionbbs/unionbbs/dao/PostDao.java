@@ -42,7 +42,7 @@ public class PostDao extends AbstractDao<Post> {
 			return ps;
 		}, keyHolder);
 		long pid = keyHolder.getKey().longValue();
-		commentDao.newComment(uid, pid, content);
+		commentDao.newComment(uid, pid, content, false);
 	}
 
 }

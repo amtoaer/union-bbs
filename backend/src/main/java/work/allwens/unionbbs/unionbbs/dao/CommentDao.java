@@ -25,8 +25,13 @@ public class CommentDao extends AbstractDao<Comment> {
         return (long) Math.ceil((double) count / 10);
     }
 
-    public void newComment(long uid, long pid, String content) {
+    public void newComment(long uid, long pid, String content, boolean updatePost) {
+        // updatePost用于指定是否更新Post
+        var time = new Timestamp(System.currentTimeMillis());
         getJdbcTemplate().update("INSERT INTO comments(uid,pid,ccontent,cdate) VALUES (?,?,?,?);", uid, pid, content,
-                new Timestamp(System.currentTimeMillis()));
+                time);
+        if (updatePost) {
+            getJdbcTemplate().update("UPDATE posts SET pdate = ?,pcomment=pcomment+1 WHERE posts.id = ?;", time, pid);
+        }
     }
 }

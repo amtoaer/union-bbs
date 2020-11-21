@@ -139,6 +139,6 @@ public class Info {
     @PostMapping("/comments/new")
     public void newComment(@RequestBody work.allwens.unionbbs.unionbbs.request.Comment body, HttpServletRequest req) {
         User author = (User) req.getAttribute("author");
-        commentDao.newComment(author.getId(), body.getPid(), body.getContent());
+        commentDao.newComment(author.getId(), body.getPid(), body.getContent(), true);
     }
 }
