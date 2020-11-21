@@ -9,8 +9,6 @@ public class User {
     private String uaccount;
     private String upassword;
     private String uavatar;
-    private int upermission;
-    private String usign;
 
     public long getId() {
         return id;
@@ -52,21 +50,4 @@ public class User {
     public void setUavatar(String uavatar) {
         this.uavatar = uavatar;
     }
-
-    public int getUpermission() {
-        return upermission;
-    }
-
-    public void setUpermission(int upermission) {
-        this.upermission = upermission;
-    }
-
-    public String getUsign() {
-        return usign;
-    }
-
-    public void setUsign(String usign) {
-        this.usign = usign;
-    }
-
 }
