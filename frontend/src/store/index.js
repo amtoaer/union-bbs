@@ -28,6 +28,17 @@ export default new Vuex.Store({
     setLoginStatus(state, isLogin) {
       state.isLogin = isLogin;
     },
+    setDefaultUser(state) {
+      state.user = {
+        id: 0,
+        uname: "未登录",
+        uaccount: "未登录",
+        uavatar:
+          "https://gravatar.loli.net/avatar/d41d8cd98f00b204e9800998ecf8427e?s=40&d=mp",
+        upermission: 2,
+        usign: "",
+      };
+    },
   },
   actions: {
     async login({ commit }, user) {
