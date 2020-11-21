@@ -27,7 +27,7 @@ public class LoginFilter extends FilterRegistrationBean<Filter> {
     public void init() {
         setFilter(new ApiFilter());
         // 需要登录才能访问：users下的所有功能，新帖子和新评论内容
-        setUrlPatterns(List.of("/api/users/*", "/posts/new", "/comments/new"));
+        setUrlPatterns(List.of("/api/users/*", "/api/posts/new", "/api/comments/new"));
     }
 
     class ApiFilter implements Filter {
