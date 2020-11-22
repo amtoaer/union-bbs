@@ -49,12 +49,19 @@
           <v-list-item @click="logOut()">
             <v-list-item-title>注销</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="$router.push({ path: '/profile' })">
+            <v-list-item-title>个人信息</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
     </v-main>
+    <!-- 全局的消息提示框 -->
+    <v-snackbar v-model="snackbar" timeout="2000" :color="color">
+      {{ message }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -70,6 +77,20 @@ export default {
     },
     isLogin: function() {
       return this.$store.state.isLogin;
+    },
+    snackbar: {
+      get() {
+        return this.$store.state.snackbar.enable;
+      },
+      set(value) {
+        return this.$store.commit("setSnackbarStatus", value);
+      },
+    },
+    message: function() {
+      return this.$store.state.snackbar.message;
+    },
+    color: function() {
+      return this.$store.state.snackbar.color;
     },
   },
   data: () => ({
