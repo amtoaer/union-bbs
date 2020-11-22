@@ -3,7 +3,6 @@
     <v-form ref="form" v-model="valid" class="pa-4 pt-6">
       <v-text-field
         v-model="uname"
-        :value="myInfo.uname"
         filled
         :rules="nameRules"
         color="primary"
@@ -11,7 +10,6 @@
       ></v-text-field>
       <v-text-field
         v-model="uaccount"
-        :value="myInfo.uaccount"
         filled
         :rules="accountRules"
         color="primary"
@@ -26,7 +24,6 @@
       ></v-text-field>
       <v-text-field
         v-model="uavatar"
-        :value="myInfo.uavatar"
         filled
         :rules="avatarRules"
         color="primary"
@@ -51,10 +48,6 @@
 <script>
 export default {
   data: () => ({
-    uname: "",
-    uaccount: "",
-    upassword: "",
-    uavatar: "",
     vaild: false,
     accountRules: [
       (v) => !!v || "帐号不能为空",
@@ -69,11 +62,15 @@ export default {
       (v) => !!v || "头像链接不能为空",
       (v) => (v && v.length <= 150) || "头像链接长度必须小于150字符",
     ],
+    uname: "",
+    uaccount: "",
+    upassword: "",
+    uavatar: "",
   }),
-  computed: {
-    myInfo: function() {
-      return this.$store.state.user;
-    },
+  created: function() {
+    this.uname = this.$store.state.user.uname;
+    this.uaccount = this.$store.state.user.uaccount;
+    this.uavatar = this.$store.state.user.uavatar;
   },
   methods: {
     updateProfile() {
