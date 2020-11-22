@@ -57,7 +57,7 @@ export default {
       (v) => !!v || "用户名不能为空",
       (v) => (v && v.length <= 10) || "用户名长度必须小于10字符",
     ],
-    passwordRules: [(v) => (v && v.length <= 16) || "密码长度必须小于16字符"],
+    passwordRules: [(v) => v.length <= 16 || "密码长度必须小于16字符"],
     avatarRules: [
       (v) => !!v || "头像链接不能为空",
       (v) => (v && v.length <= 150) || "头像链接长度必须小于150字符",
@@ -90,9 +90,14 @@ export default {
             this.$store.dispatch("errorMessage", resp.data.message);
           } else {
             // 成功修改
+            this.$store.commit("updateUser", {
+              uname: this.uname,
+              uaccount: this.uaccount,
+              uavatar: this.uavatar,
+            });
             this.$store.dispatch("successMessage", resp.data.message);
             // 因为token使用用户密码作为secret，因此如果修改了密码需要刷新token
-            if (this.upassword.length != 0) {
+            if (this.upassword) {
               this.$store
                 .dispatch("login", {
                   account: this.uaccount,

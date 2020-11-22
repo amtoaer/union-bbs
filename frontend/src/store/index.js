@@ -37,6 +37,11 @@ export default new Vuex.Store({
     setLoginStatus(state, isLogin) {
       state.isLogin = isLogin;
     },
+    updateUser(state, payload) {
+      state.user.uname = payload.uname;
+      state.user.uaccount = payload.uaccount;
+      state.user.uavatar = payload.uavatar;
+    },
     setDefaultUser(state) {
       state.user = {
         id: 0,
