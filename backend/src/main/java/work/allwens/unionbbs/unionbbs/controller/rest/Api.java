@@ -123,11 +123,18 @@ public class Api {
      * @param req
      */
     @PostMapping("/posts/new")
-    public void newPost(@RequestBody work.allwens.unionbbs.unionbbs.request.Post body, HttpServletRequest req) {
-        // 获取绑定在请求中的用户信息(详情见过滤器)
-        User author = (User) req.getAttribute("author");
-        // 加入新的帖子
-        postDao.newPost(author.getId(), body.getTitle(), body.getContent());
+    public Map<String, Object> newPost(@RequestBody work.allwens.unionbbs.unionbbs.request.Post body,
+            HttpServletRequest req) {
+        try {
+            // 获取绑定在请求中的用户信息(详情见过滤器)
+            User author = (User) req.getAttribute("author");
+            // 加入新的帖子
+            postDao.newPost(author.getId(), body.getTitle(), body.getContent());
+            return Map.of("message", "帖子发送成功");
+        } catch (Exception e) {
+            return Map.of("error", "POST_FAILED", "message", e.getMessage());
+        }
+
     }
 
     /**
@@ -137,14 +144,37 @@ public class Api {
      * @param req
      */
     @PostMapping("/comments/new")
-    public void newComment(@RequestBody work.allwens.unionbbs.unionbbs.request.Comment body, HttpServletRequest req) {
-        User author = (User) req.getAttribute("author");
-        commentDao.newComment(author.getId(), body.getPid(), body.getContent(), true);
+    public Map<String, Object> newComment(@RequestBody work.allwens.unionbbs.unionbbs.request.Comment body,
+            HttpServletRequest req) {
+        try {
+            User author = (User) req.getAttribute("author");
+            commentDao.newComment(author.getId(), body.getPid(), body.getContent(), true);
+            return Map.of("message", "评论发送成功");
+        } catch (Exception e) {
+            return Map.of("error", "COMMENT_FAILED", "message", e.getMessage());
+        }
     }
 
+    /**
+     * 更新用户信息
+     * 
+     * @param body
+     * @param req
+     * @return
+     */
     @PostMapping("/users/update")
-    public void updateUserInfo(@RequestBody work.allwens.unionbbs.unionbbs.request.User body, HttpServletRequest req) {
-        User author = (User) req.getAttribute("author");
-        userDao.update(body.getUname(), body.getUaccount(), body.getUpassword(), body.getUavatar(), author.getId());
+    public Map<String, Object> updateUserInfo(@RequestBody work.allwens.unionbbs.unionbbs.request.User body,
+            HttpServletRequest req) {
+        try {
+            User author = (User) req.getAttribute("author");
+            // 如果密码为空则使用原密码
+            if (body.getUpassword().equals("")) {
+                body.setUpassword(author.getUpassword());
+            }
+            userDao.update(body.getUname(), body.getUaccount(), body.getUpassword(), body.getUavatar(), author.getId());
+            return Map.of("message", "个人信息更新成功");
+        } catch (Exception e) {
+            return Map.of("error", "UPDATE_FAILED", "message", e.getMessage());
+        }
     }
 }
