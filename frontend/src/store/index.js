@@ -15,10 +15,21 @@ export default new Vuex.Store({
     },
     title: "",
     isLogin: false,
+    snackbar: {
+      enable: false,
+      message: "",
+      color: "success",
+    },
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setSnackbar(state, snackbar) {
+      state.snackbar = snackbar;
+    },
+    setSnackbarStatus(state, status) {
+      state.snackbar.enable = status;
     },
     setTitle(state, title) {
       state.title = title;
@@ -45,6 +56,22 @@ export default new Vuex.Store({
         commit("setUser", data.user);
         return Promise.resolve(data.token);
       }
+    },
+
+    successMessage({ commit }, message) {
+      commit("setSnackbar", {
+        enable: true,
+        message: message,
+        color: "success",
+      });
+    },
+
+    errorMessage({ commit }, message) {
+      commit("setSnackbar", {
+        enable: true,
+        message: message,
+        color: "error",
+      });
     },
 
     async register({ commit }, user) {
