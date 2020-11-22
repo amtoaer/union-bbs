@@ -83,20 +83,28 @@ export default {
     },
   },
   methods: {
-    async newComment() {
-      // 关闭对话框
-      this.dialog = false;
+    newComment() {
       // 请求加入新的评论
-      await this.axios.request({
-        url: `/api/comments/new`,
-        method: "POST",
-        data: {
-          pid: Number(this.pid),
-          content: this.content,
-        },
-      });
-      // 更新页面
-      this.updatePage();
+      this.axios
+        .request({
+          url: `/api/comments/new`,
+          method: "POST",
+          data: {
+            pid: Number(this.pid),
+            content: this.content,
+          },
+        })
+        .then((resp) => {
+          if (resp.data.error) {
+            this.$store.dispatch("errorMessage", resp.data.message);
+          } else {
+            // 关掉对话框
+            this.dialog = false;
+            this.$store.dispatch("successMessage", resp.data.message);
+            // 更新页面
+            this.updatePage();
+          }
+        });
     },
     updatePage() {
       this.axios

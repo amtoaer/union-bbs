@@ -39,18 +39,26 @@ export default {
     content: "",
   }),
   methods: {
-    async newPost() {
+    newPost() {
       //请求发帖
-      await this.axios.request({
-        url: `/api/posts/new`,
-        method: "POST",
-        data: {
-          title: this.title,
-          content: this.content,
-        },
-      });
-      // 跳转到帖子界面
-      this.$router.push({ path: "/" });
+      this.axios
+        .request({
+          url: `/api/posts/new`,
+          method: "POST",
+          data: {
+            title: this.title,
+            content: this.content,
+          },
+        })
+        .then((resp) => {
+          if (resp.data.error) {
+            this.$store.dispatch("errorMessage", resp.data.message);
+          } else {
+            this.$store.dispatch("successMessage", resp.data.message);
+            // 跳转到帖子界面
+            this.$router.push({ path: "/" });
+          }
+        });
     },
   },
   created: function() {
