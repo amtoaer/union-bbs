@@ -57,6 +57,7 @@ export default {
           localStorage.setItem("token", token);
           // 设置登陆状态为true
           this.$store.commit("setLoginStatus", true);
+          this.$store.dispatch("successMessage", "登录成功");
           // 跳转到主页
           this.$router.push({ path: "/" });
         });
