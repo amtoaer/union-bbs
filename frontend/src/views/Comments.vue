@@ -103,6 +103,8 @@ export default {
             this.$store.dispatch("successMessage", resp.data.message);
             // 更新页面
             this.updatePage();
+            // 更新页数
+            this.getTotalPage();
           }
         });
     },
