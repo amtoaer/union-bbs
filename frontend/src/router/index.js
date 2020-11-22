@@ -5,7 +5,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Comments from "../views/Comments.vue";
 import Post from "../views/Post.vue";
-
+import Profile from "../views/Profile.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,6 +33,11 @@ const routes = [
     path: "/new",
     name: "Post",
     component: Post,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
 ];
 
